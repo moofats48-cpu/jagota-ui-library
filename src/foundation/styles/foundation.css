@@ -1,0 +1,441 @@
+/**
+ * Jagota Brother Trading — Design System Foundation
+ * CSS Custom Properties
+ *
+ * Usage:
+ *   @import '@jagota/ui-foundation/styles/foundation.css';
+ *   background: var(--md-sys-color-surface);
+ *   font-size: var(--md-sys-typescale-body-medium-size);
+ *
+ * Naming follows M3 design token convention:
+ *   --md-sys-color-{role}
+ *   --md-sys-typescale-{role}-{property}
+ *   --md-sys-shape-corner-{size}
+ *   --md-sys-elevation-level{n}
+ */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   FONT — TikTok Sans (Variable Font — self-hosted)
+   Source: TikTok_Sans/TikTokSans-VariableFont_opsz,slnt,wdth,wght.ttf
+   Covers weights: 300–900 (Regular=400, Medium=500, SemiBold=600)
+   Jagota uses ONLY: 400 · 500 · 600
+   ───────────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: 'TikTok Sans';
+  src: url('../../../TikTok_Sans/TikTokSans-VariableFont_opsz,slnt,wdth,wght.ttf') format('truetype');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Noto Sans Thai — Thai language fallback */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap');
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   ROOT — Light Theme (default)
+   Jagota Brand Blue: #0743FF
+   ───────────────────────────────────────────────────────────────────────────── */
+:root,
+[data-theme="light"] {
+
+  /* ── Color Tokens ──────────────────────────────────────────────────── */
+
+  /* Primary */
+  --md-sys-color-primary:                    #0743FF;
+  --md-sys-color-on-primary:                 #FFFFFF;
+  --md-sys-color-primary-container:          #DEE0FF;
+  --md-sys-color-on-primary-container:       #0031C6;
+
+  /* Secondary */
+  --md-sys-color-secondary:                  #0743FF;
+  --md-sys-color-on-secondary:               #FFFFFF;
+  --md-sys-color-secondary-container:        #DEE0FF;
+  --md-sys-color-on-secondary-container:     #2E3F94;
+
+  /* Tertiary */
+  --md-sys-color-tertiary:                   #9B00B0;
+  --md-sys-color-on-tertiary:                #FFFFFF;
+  --md-sys-color-tertiary-container:         #FCD7FF;
+  --md-sys-color-on-tertiary-container:      #780097;
+
+  /* Error */
+  --md-sys-color-error:                      #BA1A1A;
+  --md-sys-color-on-error:                   #FFFFFF;
+  --md-sys-color-error-container:            rgba(186, 26, 26, 0.10);
+  --md-sys-color-on-error-container:         #93000A;
+
+  /* Background */
+  --md-sys-color-background:                 #FBF8FF;
+  --md-sys-color-on-background:              #191B25;
+
+  /* Surface System */
+  --md-sys-color-surface:                    #FBF8FF;
+  --md-sys-color-on-surface:                 #191B25;
+  --md-sys-color-surface-variant:            #E0E1F6;
+  --md-sys-color-on-surface-variant:         #434657;
+  --md-sys-color-surface-dim:                #D9D9E7;
+  --md-sys-color-surface-bright:             #FBF8FF;
+  --md-sys-color-surface-container-lowest:   #FFFFFF;
+  --md-sys-color-surface-container-low:      #F4F2FF;
+  --md-sys-color-surface-container:          #EDECFB;
+  --md-sys-color-surface-container-high:     #E8E7F5;
+  --md-sys-color-surface-container-highest:  #E2E1F0;
+
+  /* Outline */
+  --md-sys-color-outline:                    #747689;
+  --md-sys-color-outline-variant:            #C4C5DA;
+
+  /* Utility */
+  --md-sys-color-shadow:                     #000000;
+  --md-sys-color-scrim:                      #000000;
+  --md-sys-color-surface-tint:               #0743FF;
+
+  /* Inverse */
+  --md-sys-color-inverse-surface:            #2E303B;
+  --md-sys-color-inverse-on-surface:         #F0EFFE;
+  --md-sys-color-inverse-primary:            #BAC3FF;
+
+  /* Fixed Colors */
+  --md-sys-color-primary-fixed:              #DEE0FF;
+  --md-sys-color-on-primary-fixed:           #00115A;
+  --md-sys-color-primary-fixed-dim:          #BAC3FF;
+  --md-sys-color-on-primary-fixed-variant:   #0031C6;
+  --md-sys-color-secondary-fixed:            #DEE0FF;
+  --md-sys-color-on-secondary-fixed:         #00115A;
+  --md-sys-color-secondary-fixed-dim:        #BAC3FF;
+  --md-sys-color-on-secondary-fixed-variant: #2E3F94;
+  --md-sys-color-tertiary-fixed:             #FCD7FF;
+  --md-sys-color-on-tertiary-fixed:          #340043;
+  --md-sys-color-tertiary-fixed-dim:         #F2AFFF;
+  --md-sys-color-on-tertiary-fixed-variant:  #780097;
+
+  /* Jagota Custom Add-ons */
+  --jagota-color-section-background:         #F5F5F5;
+  --jagota-color-brand-primary:              #0743FF;
+  --jagota-color-brand-secondary:            #BAC3FF;
+
+  /* ── Typography Tokens ──────────────────────────────────────────────── */
+
+  --md-sys-typescale-font-brand:    "TikTok Sans", "Noto Sans Thai", "Sarabun", sans-serif;
+  --md-sys-typescale-font-plain:    "TikTok Sans", "Noto Sans Thai", "Sarabun", sans-serif;
+
+  /* Display Large — 57/64/-0.25 */
+  --md-sys-typescale-display-large-font:          var(--md-sys-typescale-font-brand);
+  --md-sys-typescale-display-large-size:          57px;
+  --md-sys-typescale-display-large-line-height:   64px;
+  --md-sys-typescale-display-large-tracking:      -0.25px;
+  --md-sys-typescale-display-large-weight:        400;
+
+  /* Display Medium — 45/52/0 */
+  --md-sys-typescale-display-medium-font:         var(--md-sys-typescale-font-brand);
+  --md-sys-typescale-display-medium-size:         45px;
+  --md-sys-typescale-display-medium-line-height:  52px;
+  --md-sys-typescale-display-medium-tracking:     0px;
+  --md-sys-typescale-display-medium-weight:       400;
+
+  /* Display Small — 36/44/0 */
+  --md-sys-typescale-display-small-font:          var(--md-sys-typescale-font-brand);
+  --md-sys-typescale-display-small-size:          36px;
+  --md-sys-typescale-display-small-line-height:   44px;
+  --md-sys-typescale-display-small-tracking:      0px;
+  --md-sys-typescale-display-small-weight:        400;
+
+  /* Headline Large — 32/40/0 */
+  --md-sys-typescale-headline-large-font:         var(--md-sys-typescale-font-brand);
+  --md-sys-typescale-headline-large-size:         32px;
+  --md-sys-typescale-headline-large-line-height:  40px;
+  --md-sys-typescale-headline-large-tracking:     0px;
+  --md-sys-typescale-headline-large-weight:       400;
+
+  /* Headline Medium — 28/36/0 */
+  --md-sys-typescale-headline-medium-font:        var(--md-sys-typescale-font-brand);
+  --md-sys-typescale-headline-medium-size:        28px;
+  --md-sys-typescale-headline-medium-line-height: 36px;
+  --md-sys-typescale-headline-medium-tracking:    0px;
+  --md-sys-typescale-headline-medium-weight:      400;
+
+  /* Headline Small — 24/32/0 */
+  --md-sys-typescale-headline-small-font:         var(--md-sys-typescale-font-brand);
+  --md-sys-typescale-headline-small-size:         24px;
+  --md-sys-typescale-headline-small-line-height:  32px;
+  --md-sys-typescale-headline-small-tracking:     0px;
+  --md-sys-typescale-headline-small-weight:       400;
+
+  /* Title Large — 22/28/0 */
+  --md-sys-typescale-title-large-font:            var(--md-sys-typescale-font-brand);
+  --md-sys-typescale-title-large-size:            22px;
+  --md-sys-typescale-title-large-line-height:     28px;
+  --md-sys-typescale-title-large-tracking:        0px;
+  --md-sys-typescale-title-large-weight:          400;
+
+  /* Title Medium — 16/24/0.15 */
+  --md-sys-typescale-title-medium-font:           var(--md-sys-typescale-font-plain);
+  --md-sys-typescale-title-medium-size:           16px;
+  --md-sys-typescale-title-medium-line-height:    24px;
+  --md-sys-typescale-title-medium-tracking:       0.15px;
+  --md-sys-typescale-title-medium-weight:         500;
+
+  /* Title Small — 14/20/0.10 */
+  --md-sys-typescale-title-small-font:            var(--md-sys-typescale-font-plain);
+  --md-sys-typescale-title-small-size:            14px;
+  --md-sys-typescale-title-small-line-height:     20px;
+  --md-sys-typescale-title-small-tracking:        0.10px;
+  --md-sys-typescale-title-small-weight:          500;
+
+  /* Body Large — 16/24/0.5 */
+  --md-sys-typescale-body-large-font:             var(--md-sys-typescale-font-plain);
+  --md-sys-typescale-body-large-size:             16px;
+  --md-sys-typescale-body-large-line-height:      24px;
+  --md-sys-typescale-body-large-tracking:         0.50px;
+  --md-sys-typescale-body-large-weight:           400;
+
+  /* Body Medium — 14/20/0.25 */
+  --md-sys-typescale-body-medium-font:            var(--md-sys-typescale-font-plain);
+  --md-sys-typescale-body-medium-size:            14px;
+  --md-sys-typescale-body-medium-line-height:     20px;
+  --md-sys-typescale-body-medium-tracking:        0.25px;
+  --md-sys-typescale-body-medium-weight:          400;
+
+  /* Body Small — 12/16/0.40 */
+  --md-sys-typescale-body-small-font:             var(--md-sys-typescale-font-plain);
+  --md-sys-typescale-body-small-size:             12px;
+  --md-sys-typescale-body-small-line-height:      16px;
+  --md-sys-typescale-body-small-tracking:         0.40px;
+  --md-sys-typescale-body-small-weight:           400;
+
+  /* Label Large — 14/20/0.10 */
+  --md-sys-typescale-label-large-font:            var(--md-sys-typescale-font-plain);
+  --md-sys-typescale-label-large-size:            14px;
+  --md-sys-typescale-label-large-line-height:     20px;
+  --md-sys-typescale-label-large-tracking:        0.10px;
+  --md-sys-typescale-label-large-weight:          500;
+
+  /* Label Medium — 12/16/0.50 */
+  --md-sys-typescale-label-medium-font:           var(--md-sys-typescale-font-plain);
+  --md-sys-typescale-label-medium-size:           12px;
+  --md-sys-typescale-label-medium-line-height:    16px;
+  --md-sys-typescale-label-medium-tracking:       0.50px;
+  --md-sys-typescale-label-medium-weight:         500;
+
+  /* Label Small — 11/16/0.50 */
+  --md-sys-typescale-label-small-font:            var(--md-sys-typescale-font-plain);
+  --md-sys-typescale-label-small-size:            11px;
+  --md-sys-typescale-label-small-line-height:     16px;
+  --md-sys-typescale-label-small-tracking:        0.50px;
+  --md-sys-typescale-label-small-weight:          500;
+
+  /* ── Shape Tokens ───────────────────────────────────────────────────── */
+
+  --md-sys-shape-corner-none:                0px;
+  --md-sys-shape-corner-extra-small:         4px;
+  --md-sys-shape-corner-small:               8px;
+  --md-sys-shape-corner-medium:              12px;
+  --md-sys-shape-corner-large:               16px;
+  --md-sys-shape-corner-large-increased:     20px;
+  --md-sys-shape-corner-extra-large:         28px;
+  --md-sys-shape-corner-extra-large-increased: 32px;
+  --md-sys-shape-corner-extra-extra-large:   48px;
+  --md-sys-shape-corner-full:                1000px;
+
+  /* ── Spacing Tokens ─────────────────────────────────────────────────── */
+
+  --jagota-space-xs:   2px;
+  --jagota-space-s:    4px;
+  --jagota-space-m:    8px;
+  --jagota-space-sm:   12px;
+  --jagota-space-l:    16px;
+  --jagota-space-sl:   20px;
+  --jagota-space-xl:   24px;
+  --jagota-space-2xl:  32px;
+  --jagota-space-3xl:  40px;
+  --jagota-space-4xl:  48px;
+  --jagota-space-5xl:  64px;
+
+  /* ── Elevation Tokens ───────────────────────────────────────────────── */
+
+  --md-sys-elevation-level0: none;
+  --md-sys-elevation-level1: 0px 1px 2px rgba(0,0,0,0.30), 0px 1px 3px 1px rgba(0,0,0,0.15);
+  --md-sys-elevation-level2: 0px 1px 2px rgba(0,0,0,0.30), 0px 2px 6px 2px rgba(0,0,0,0.15);
+  --md-sys-elevation-level3: 0px 4px 8px 3px rgba(0,0,0,0.15), 0px 1px 3px rgba(0,0,0,0.30);
+  --md-sys-elevation-level4: 0px 6px 10px 4px rgba(0,0,0,0.15), 0px 2px 3px rgba(0,0,0,0.30);
+  --md-sys-elevation-level5: 0px 8px 12px 6px rgba(0,0,0,0.15), 0px 4px 4px rgba(0,0,0,0.30);
+
+  /* ── Surface Tint Tokens (Elevation overlays) ───────────────────────── */
+
+  --md-sys-elevation-tint-level0: transparent;
+  --md-sys-elevation-tint-level1: rgba(7, 67, 255, 0.05);
+  --md-sys-elevation-tint-level2: rgba(7, 67, 255, 0.08);
+  --md-sys-elevation-tint-level3: rgba(7, 67, 255, 0.11);
+  --md-sys-elevation-tint-level4: rgba(7, 67, 255, 0.12);
+  --md-sys-elevation-tint-level5: rgba(7, 67, 255, 0.14);
+
+  /* ── State Layer Tokens ─────────────────────────────────────────────── */
+
+  --md-sys-state-hover-opacity:    0.08;
+  --md-sys-state-pressed-opacity:  0.12;
+  --md-sys-state-focused-opacity:  0.12;
+  --md-sys-state-dragged-opacity:  0.16;
+  --md-sys-state-disabled-opacity: 0.38;
+
+  /* ── Motion Tokens (M3 Easing) ──────────────────────────────────────── */
+
+  --md-sys-motion-standard:          cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-standard-decelerate: cubic-bezier(0, 0, 0, 1);
+  --md-sys-motion-standard-accelerate: cubic-bezier(0.3, 0, 1, 1);
+  --md-sys-motion-emphasized:        cubic-bezier(0.2, 0, 0, 1);
+  --md-sys-motion-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
+  --md-sys-motion-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
+
+  --md-sys-motion-duration-short1:   50ms;
+  --md-sys-motion-duration-short2:   100ms;
+  --md-sys-motion-duration-short3:   150ms;
+  --md-sys-motion-duration-short4:   200ms;
+  --md-sys-motion-duration-medium1:  250ms;
+  --md-sys-motion-duration-medium2:  300ms;
+  --md-sys-motion-duration-medium3:  350ms;
+  --md-sys-motion-duration-medium4:  400ms;
+  --md-sys-motion-duration-long1:    450ms;
+  --md-sys-motion-duration-long2:    500ms;
+  --md-sys-motion-duration-long3:    550ms;
+  --md-sys-motion-duration-long4:    600ms;
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   DARK THEME OVERRIDES
+   ───────────────────────────────────────────────────────────────────────────── */
+[data-theme="dark"],
+.dark-theme {
+  --md-sys-color-primary:                    #BAC3FF;
+  --md-sys-color-on-primary:                 #00208E;
+  --md-sys-color-primary-container:          #0743FF;
+  --md-sys-color-on-primary-container:       #D1D6FF;
+
+  --md-sys-color-secondary:                  #BAC3FF;
+  --md-sys-color-on-secondary:               #12267D;
+  --md-sys-color-secondary-container:        #304196;
+  --md-sys-color-on-secondary-container:     #A7B4FF;
+
+  --md-sys-color-tertiary:                   #F2AFFF;
+  --md-sys-color-on-tertiary:                #55006B;
+  --md-sys-color-tertiary-container:         #780097;
+  --md-sys-color-on-tertiary-container:      #FCD7FF;
+
+  --md-sys-color-error:                      #FFB4AB;
+  --md-sys-color-on-error:                   #690005;
+  --md-sys-color-error-container:            #93000A;
+  --md-sys-color-on-error-container:         #FFDAD6;
+
+  --md-sys-color-background:                 #111318;
+  --md-sys-color-on-background:              #E3E2EA;
+
+  --md-sys-color-surface:                    #111318;
+  --md-sys-color-on-surface:                 #E3E2EA;
+  --md-sys-color-surface-variant:            #44464F;
+  --md-sys-color-on-surface-variant:         #C4C6D0;
+  --md-sys-color-surface-dim:                #111318;
+  --md-sys-color-surface-bright:             #373943;
+  --md-sys-color-surface-container-lowest:   #0C0E13;
+  --md-sys-color-surface-container-low:      #191C23;
+  --md-sys-color-surface-container:          #1D2028;
+  --md-sys-color-surface-container-high:     #282A32;
+  --md-sys-color-surface-container-highest:  #33363D;
+
+  --md-sys-color-outline:                    #8E9099;
+  --md-sys-color-outline-variant:            #44464F;
+  --md-sys-color-surface-tint:               #BAC3FF;
+  --md-sys-color-inverse-surface:            #E3E2EA;
+  --md-sys-color-inverse-on-surface:         #2E3038;
+  --md-sys-color-inverse-primary:            #0743FF;
+
+  --jagota-color-section-background:         #1A1A1A;
+
+  /* Dark tints */
+  --md-sys-elevation-tint-level0: transparent;
+  --md-sys-elevation-tint-level1: rgba(186, 195, 255, 0.05);
+  --md-sys-elevation-tint-level2: rgba(186, 195, 255, 0.08);
+  --md-sys-elevation-tint-level3: rgba(186, 195, 255, 0.11);
+  --md-sys-elevation-tint-level4: rgba(186, 195, 255, 0.12);
+  --md-sys-elevation-tint-level5: rgba(186, 195, 255, 0.14);
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   RESPONSIVE TYPOGRAPHY OVERRIDES
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Tablet (≥ 600px < 960px) */
+@media (min-width: 600px) and (max-width: 959px) {
+  :root {
+    --md-sys-typescale-display-large-size:          48px;
+    --md-sys-typescale-display-large-line-height:   56px;
+    --md-sys-typescale-display-medium-size:         40px;
+    --md-sys-typescale-display-medium-line-height:  48px;
+    --md-sys-typescale-display-small-size:          32px;
+    --md-sys-typescale-display-small-line-height:   40px;
+    --md-sys-typescale-headline-large-size:         28px;
+    --md-sys-typescale-headline-large-line-height:  36px;
+    --md-sys-typescale-headline-medium-size:        24px;
+    --md-sys-typescale-headline-medium-line-height: 32px;
+    --md-sys-typescale-headline-small-size:         22px;
+    --md-sys-typescale-headline-small-line-height:  28px;
+    --md-sys-typescale-title-large-size:            20px;
+    --md-sys-typescale-title-large-line-height:     28px;
+  }
+}
+
+/* Mobile (< 600px) */
+@media (max-width: 599px) {
+  :root {
+    --md-sys-typescale-display-large-size:          40px;
+    --md-sys-typescale-display-large-line-height:   48px;
+    --md-sys-typescale-display-medium-size:         32px;
+    --md-sys-typescale-display-medium-line-height:  40px;
+    --md-sys-typescale-display-small-size:          28px;
+    --md-sys-typescale-display-small-line-height:   36px;
+    --md-sys-typescale-headline-large-size:         24px;
+    --md-sys-typescale-headline-large-line-height:  32px;
+    --md-sys-typescale-headline-medium-size:        20px;
+    --md-sys-typescale-headline-medium-line-height: 28px;
+    --md-sys-typescale-headline-small-size:         18px;
+    --md-sys-typescale-headline-small-line-height:  26px;
+    --md-sys-typescale-title-large-size:            18px;
+    --md-sys-typescale-title-large-line-height:     24px;
+    --md-sys-typescale-title-medium-size:           14px;
+    --md-sys-typescale-title-medium-line-height:    20px;
+    --md-sys-typescale-title-small-size:            12px;
+    --md-sys-typescale-title-small-line-height:     18px;
+    --md-sys-typescale-body-large-size:             14px;
+    --md-sys-typescale-body-large-line-height:      20px;
+    --md-sys-typescale-body-medium-size:            12px;
+    --md-sys-typescale-body-medium-line-height:     18px;
+    --md-sys-typescale-body-small-size:             11px;
+    --md-sys-typescale-body-small-line-height:      16px;
+    --md-sys-typescale-label-large-size:            12px;
+    --md-sys-typescale-label-large-line-height:     18px;
+    --md-sys-typescale-label-medium-size:           11px;
+    --md-sys-typescale-label-medium-line-height:    16px;
+    --md-sys-typescale-label-small-size:            10px;
+    --md-sys-typescale-label-small-line-height:     14px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   UTILITY CLASSES (optional helpers)
+   ───────────────────────────────────────────────────────────────────────────── */
+
+/* Typography utility classes */
+.jagota-display-large  { font-family: var(--md-sys-typescale-display-large-font);  font-size: var(--md-sys-typescale-display-large-size);  line-height: var(--md-sys-typescale-display-large-line-height);  letter-spacing: var(--md-sys-typescale-display-large-tracking);  font-weight: var(--md-sys-typescale-display-large-weight); }
+.jagota-display-medium { font-family: var(--md-sys-typescale-display-medium-font); font-size: var(--md-sys-typescale-display-medium-size); line-height: var(--md-sys-typescale-display-medium-line-height); letter-spacing: var(--md-sys-typescale-display-medium-tracking); font-weight: var(--md-sys-typescale-display-medium-weight); }
+.jagota-display-small  { font-family: var(--md-sys-typescale-display-small-font);  font-size: var(--md-sys-typescale-display-small-size);  line-height: var(--md-sys-typescale-display-small-line-height);  letter-spacing: var(--md-sys-typescale-display-small-tracking);  font-weight: var(--md-sys-typescale-display-small-weight); }
+.jagota-headline-large  { font-family: var(--md-sys-typescale-headline-large-font);  font-size: var(--md-sys-typescale-headline-large-size);  line-height: var(--md-sys-typescale-headline-large-line-height);  letter-spacing: var(--md-sys-typescale-headline-large-tracking);  font-weight: var(--md-sys-typescale-headline-large-weight); }
+.jagota-headline-medium { font-family: var(--md-sys-typescale-headline-medium-font); font-size: var(--md-sys-typescale-headline-medium-size); line-height: var(--md-sys-typescale-headline-medium-line-height); letter-spacing: var(--md-sys-typescale-headline-medium-tracking); font-weight: var(--md-sys-typescale-headline-medium-weight); }
+.jagota-headline-small  { font-family: var(--md-sys-typescale-headline-small-font);  font-size: var(--md-sys-typescale-headline-small-size);  line-height: var(--md-sys-typescale-headline-small-line-height);  letter-spacing: var(--md-sys-typescale-headline-small-tracking);  font-weight: var(--md-sys-typescale-headline-small-weight); }
+.jagota-title-large  { font-family: var(--md-sys-typescale-title-large-font);  font-size: var(--md-sys-typescale-title-large-size);  line-height: var(--md-sys-typescale-title-large-line-height);  letter-spacing: var(--md-sys-typescale-title-large-tracking);  font-weight: var(--md-sys-typescale-title-large-weight); }
+.jagota-title-medium { font-family: var(--md-sys-typescale-title-medium-font); font-size: var(--md-sys-typescale-title-medium-size); line-height: var(--md-sys-typescale-title-medium-line-height); letter-spacing: var(--md-sys-typescale-title-medium-tracking); font-weight: var(--md-sys-typescale-title-medium-weight); }
+.jagota-title-small  { font-family: var(--md-sys-typescale-title-small-font);  font-size: var(--md-sys-typescale-title-small-size);  line-height: var(--md-sys-typescale-title-small-line-height);  letter-spacing: var(--md-sys-typescale-title-small-tracking);  font-weight: var(--md-sys-typescale-title-small-weight); }
+.jagota-body-large  { font-family: var(--md-sys-typescale-body-large-font);  font-size: var(--md-sys-typescale-body-large-size);  line-height: var(--md-sys-typescale-body-large-line-height);  letter-spacing: var(--md-sys-typescale-body-large-tracking);  font-weight: var(--md-sys-typescale-body-large-weight); }
+.jagota-body-medium { font-family: var(--md-sys-typescale-body-medium-font); font-size: var(--md-sys-typescale-body-medium-size); line-height: var(--md-sys-typescale-body-medium-line-height); letter-spacing: var(--md-sys-typescale-body-medium-tracking); font-weight: var(--md-sys-typescale-body-medium-weight); }
+.jagota-body-small  { font-family: var(--md-sys-typescale-body-small-font);  font-size: var(--md-sys-typescale-body-small-size);  line-height: var(--md-sys-typescale-body-small-line-height);  letter-spacing: var(--md-sys-typescale-body-small-tracking);  font-weight: var(--md-sys-typescale-body-small-weight); }
+.jagota-label-large  { font-family: var(--md-sys-typescale-label-large-font);  font-size: var(--md-sys-typescale-label-large-size);  line-height: var(--md-sys-typescale-label-large-line-height);  letter-spacing: var(--md-sys-typescale-label-large-tracking);  font-weight: var(--md-sys-typescale-label-large-weight); }
+.jagota-label-medium { font-family: var(--md-sys-typescale-label-medium-font); font-size: var(--md-sys-typescale-label-medium-size); line-height: var(--md-sys-typescale-label-medium-line-height); letter-spacing: var(--md-sys-typescale-label-medium-tracking); font-weight: var(--md-sys-typescale-label-medium-weight); }
+.jagota-label-small  { font-family: var(--md-sys-typescale-label-small-font);  font-size: var(--md-sys-typescale-label-small-size);  line-height: var(--md-sys-typescale-label-small-line-height);  letter-spacing: var(--md-sys-typescale-label-small-tracking);  font-weight: var(--md-sys-typescale-label-small-weight); }

@@ -1,0 +1,46 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Jagota UI Library — .gitignore
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Dependencies ──────────────────────────────────────────────────────────────
+node_modules/
+
+# ── macOS system files ────────────────────────────────────────────────────────
+.DS_Store
+**/.DS_Store
+.AppleDouble
+.LSOverride
+
+# ── Design reference files (ไม่ต้องอยู่ใน repo) ──────────────────────────────
+*.mov
+*.mp4
+*.avi
+
+# ── TikTok Sans — static fonts (ไม่ได้ใช้งาน ใช้แค่ Variable font) ──────────
+TikTok_Sans/static/
+
+# ── Empty placeholder folders ─────────────────────────────────────────────────
+JAGOTA-UI-Library/
+
+# ── Editor / IDE ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log
+npm-debug.log*
+
+# ── Environment ───────────────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# NOTE: dist/ is intentionally NOT ignored
+# เพื่อให้ install library จาก GitHub ได้โดยตรง:
+# npm install github:moofats48-cpu/JAGOTA-UI-Library

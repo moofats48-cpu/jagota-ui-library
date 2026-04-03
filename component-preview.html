@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jagota UI Library — Component Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── TikTok Sans Variable Font ──────────────────────── */
+    @font-face {
+      font-family: 'TikTok Sans';
+      src: url('TikTok_Sans/TikTokSans-VariableFont_opsz,slnt,wdth,wght.ttf') format('truetype');
+      font-weight: 300 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ─── Jagota Color Tokens ─────────────────────────────── */
+    :root {
+      /* Brand */
+      --primary:                   #0743FF;
+      --on-primary:                #FFFFFF;
+      --primary-container:         #DEE0FF;
+      --on-primary-container:      #0031C6;
+      /* Surface hierarchy */
+      --surface:                   #FBF8FF;
+      --on-surface:                #191B25;
+      --surface-variant:           #E0E1F6;
+      --on-surface-variant:        #434657;
+      --surface-container-lowest:  #FFFFFF;
+      --surface-container-low:     #F4F2FF;
+      --surface-container:         #EDECFB;
+      --surface-container-high:    #E8E7F5;
+      --surface-container-highest: #E2E1F0;
+      /* Secondary / Tertiary */
+      --secondary-container:       #DEE0FF;
+      --on-secondary-container:    #2E3F94;
+      --tertiary-container:        #FCD7FF;
+      --on-tertiary-container:     #780097;
+      /* Error / Status */
+      --error:                     #BA1A1A;
+      --error-container:           rgba(186,26,26,0.10);
+      --on-error:                  #FFFFFF;
+      --success:                   #22C55E;
+      --warning:                   #F59E0B;
+      /* Outline */
+      --outline:                   #747689;
+      --outline-variant:           #C4C5DA;
+      /* Inverse */
+      --inverse-surface:           #2E303B;
+      --inverse-on-surface:        #F0EFFE;
+      --inverse-primary:           #BAC3FF;
+      /* Typography */
+      --font:                      'TikTok Sans', 'Noto Sans Thai', sans-serif;
+      /* Shape */
+      --radius-xs:   4px;
+      --radius-sm:   8px;
+      --radius-md:   12px;
+      --radius-lg:   16px;
+      --radius-xl:   28px;
+      --radius-full: 1000px;
+    }
+
+    /* ─── Reset ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--surface);
+      color: var(--on-surface);
+      font-size: 14px;
+      line-height: 20px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Layout Shell ────────────────────────────────────── */
+    .app-shell {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* ─── Sidebar ─────────────────────────────────────────── */
+    .sidebar {
+      width: 240px;
+      min-height: 100vh;
+      background-color: var(--surface-container-lowest); /* #FFFFFF */
+      border-right: 1px solid var(--surface-variant);    /* #E0E1F6 */
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 0; left: 0;
+      z-index: 100;
+      padding: 0 8px;
+    }
+
+    /* Header row: logo + bell — 40px bottom creates gap to menu group */
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      padding: 16px 8px 40px;
+      gap: 8px;
+    }
+    .sidebar-logo {
+      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+    .sidebar-logo img {
+      height: 24px;
+      width: auto;
+    }
+    /* Bell button */
+    .bell-btn {
+      position: relative;
+      width: 40px; height: 40px;
+      border-radius: var(--radius-full);
+      border: none; background: transparent;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--on-surface-variant);
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .bell-btn:hover { background-color: rgba(222,224,255,0.20); }
+    .bell-badge {
+      position: absolute;
+      top: 6px; right: 6px;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background-color: var(--error);
+      border: 1.5px solid var(--surface-container-lowest);
+    }
+
+    /* Module name row: label + collapse button */
+    .sidebar-module-row {
+      display: flex;
+      align-items: center;
+      padding: 4px 8px 8px;
+      gap: 4px;
+    }
+    .sidebar-module {
+      flex: 1;
+      font-size: 11px; font-weight: 500;
+      color: var(--outline);                /* #747689 */
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    /* Collapse button — Square type (radius-sm = 8px), NOT pill */
+    .collapse-btn {
+      width: 28px; height: 28px;
+      border-radius: var(--radius-sm);              /* 8px — Square type */
+      border: none;
+      background-color: var(--tertiary-container);   /* #FCD7FF */
+      color: var(--on-tertiary-container);            /* #780097 */
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .collapse-btn:hover { opacity: 0.88; }
+
+    /* Nav items */
+    .nav-item {
+      display: flex; align-items: center;
+      gap: 8px;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: background 150ms;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+      color: var(--on-surface-variant);
+      font-family: var(--font);
+      font-size: 12px; font-weight: 600;
+    }
+    .nav-item:hover { background-color: rgba(222,224,255,0.10); } /* primaryContainer 10% */
+    .nav-item.active {
+      background-color: var(--surface-container-low);  /* #F4F2FF */
+      color: var(--on-surface);                         /* #191B25 */
+    }
+    .nav-item .icon-box {
+      width: 24px; height: 24px;
+      background: transparent;                          /* No background on icon box */
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 15px;
+    }
+    .nav-item .nav-label { flex: 1; }
+    .nav-item.active .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background-color: var(--primary);                 /* #0743FF */
+      flex-shrink: 0;
+    }
+    /* Divider is now full-width, applied inline to match component spec */
+
+    /* User section */
+    .sidebar-user {
+      margin-top: auto;
+      padding: 12px 8px 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .avatar {
+      width: 40px; height: 40px;                        /* 40×40 confirmed */
+      border-radius: 50%;
+      border: 1px solid var(--outline-variant);         /* #C4C5DA */
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 600;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .user-info { min-width: 0; }
+    .user-name { font-size: 12px; font-weight: 600; color: var(--on-surface); }    /* #191B25 */
+    .user-role { font-size: 11px; font-weight: 500; color: var(--outline); }        /* #747689 */
+
+    /* ─── Content ─────────────────────────────────────────── */
+    .content {
+      margin-left: 240px;
+      padding: 32px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    /* ─── Section Headings ────────────────────────────────── */
+    .section {
+      margin-bottom: 48px;
+    }
+    .section-title {
+      font-size: 22px; font-weight: 400; line-height: 28px;
+      color: var(--on-surface);
+      margin-bottom: 4px;
+    }
+    .section-sub {
+      font-size: 14px; color: var(--on-surface-variant);
+      margin-bottom: 24px;
+    }
+    .row {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      margin-bottom: 12px;
+    }
+    .col-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    /* ─── BUTTONS ─────────────────────────────────────────── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      gap: 8px;
+      padding: 10px 24px;
+      border-radius: var(--radius-full);
+      font-family: var(--font);
+      font-size: 14px; font-weight: 500;
+      line-height: 20px; letter-spacing: 0.1px;
+      cursor: pointer;
+      border: none;
+      transition: opacity 150ms;
+    }
+    .btn:hover { opacity: 0.88; }
+    .btn-filled   { background-color: var(--primary); color: var(--on-primary); }
+    .btn-outlined { background: transparent; color: var(--on-surface-variant); border: 1.5px solid var(--outline-variant); }
+    .btn-text     { background: transparent; color: var(--primary); }
+    .btn-tonal    { background-color: var(--secondary-container); color: var(--on-secondary-container); }
+    .btn-error    { background-color: var(--error); color: var(--on-error); }
+    .btn-sm       { padding: 6px 16px; font-size: 12px; }
+    .btn-disabled { opacity: 0.38; cursor: not-allowed; }
+
+    /* ─── CARDS ───────────────────────────────────────────── */
+    .card {
+      background-color: var(--surface-container-lowest);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .card-outlined {
+      background: transparent;
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .card-tonal {
+      background-color: var(--surface-container);
+      border-radius: var(--radius-md);
+      padding: 16px;
+    }
+    .card-title {
+      font-size: 16px; font-weight: 500; line-height: 24px;
+      color: var(--on-surface);
+      margin-bottom: 4px;
+    }
+    .card-body {
+      font-size: 14px; font-weight: 400; line-height: 20px;
+      color: var(--on-surface-variant);
+    }
+    .card-actions {
+      display: flex; gap: 8px; margin-top: 16px;
+    }
+
+    /* ─── TEXT FIELDS ─────────────────────────────────────── */
+    .field-group {
+      display: flex; flex-direction: column; gap: 4px;
+      width: 100%;
+    }
+    .field-label {
+      font-size: 12px; font-weight: 500; color: var(--on-surface-variant);
+    }
+    .field-label.focused { color: var(--primary); }
+    .field-label.error   { color: var(--error); }
+    .field-input {
+      font-family: var(--font);
+      font-size: 16px; line-height: 24px;
+      padding: 14px 12px;
+      border: 1.5px solid var(--outline);
+      border-radius: var(--radius-xs);
+      background-color: var(--surface);
+      color: var(--on-surface);
+      outline: none;
+      width: 100%;
+      transition: border-color 150ms;
+    }
+    .field-input:focus   { border-color: var(--primary); border-width: 2px; }
+    .field-input.error   { border-color: var(--error); }
+    .field-helper {
+      font-size: 12px; color: var(--on-surface-variant); margin-top: 2px;
+    }
+    .field-helper.error { color: var(--error); }
+
+    /* ─── CHIPS ───────────────────────────────────────────── */
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 12px;
+      border-radius: var(--radius-sm);
+      font-size: 14px; font-weight: 500; line-height: 20px;
+      cursor: pointer;
+    }
+    .chip-filled    { background-color: var(--secondary-container); color: var(--on-secondary-container); }
+    .chip-outlined  { background: transparent; border: 1px solid var(--outline); color: var(--on-surface-variant); }
+    .chip-selected  { background-color: var(--primary-container); color: var(--on-primary-container); }
+    .chip-error     { background-color: var(--error-container); color: var(--error); }
+    .chip-success   { background-color: rgba(34,197,94,0.12); color: #15803d; }
+    .chip-warning   { background-color: rgba(245,158,11,0.12); color: #b45309; }
+
+    /* ─── DIALOG ──────────────────────────────────────────── */
+    .dialog-demo {
+      background-color: var(--surface-container-high);
+      border-radius: var(--radius-xl);
+      max-width: 400px;
+      width: 100%;
+      padding: 0;
+      overflow: hidden;
+    }
+    .dialog-title {
+      font-size: 24px; font-weight: 400; line-height: 32px;
+      padding: 24px 24px 16px;
+      color: var(--on-surface);
+    }
+    .dialog-content {
+      padding: 0 24px 16px;
+      font-size: 14px; line-height: 20px;
+      color: var(--on-surface-variant);
+    }
+    .dialog-actions {
+      display: flex; gap: 8px;
+      padding: 24px; justify-content: flex-end;
+    }
+
+    /* ─── SNACKBAR ────────────────────────────────────────── */
+    .snackbar {
+      display: inline-flex; align-items: center; gap: 12px;
+      padding: 12px 16px;
+      border-radius: var(--radius-xs);
+      background-color: var(--inverse-surface);
+      color: var(--inverse-on-surface);
+      font-size: 14px; line-height: 20px;
+      min-width: 288px; max-width: 568px;
+    }
+    .snackbar-action {
+      color: var(--inverse-primary);
+      font-weight: 500; cursor: pointer;
+      background: none; border: none;
+      font-family: var(--font); font-size: 14px;
+      margin-left: auto;
+    }
+
+    /* ─── TOP APP BAR ─────────────────────────────────────── */
+    .top-bar {
+      background-color: var(--surface);
+      border-bottom: 1px solid var(--outline-variant);
+      padding: 0 16px;
+      height: 64px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .top-bar-title { font-size: 22px; font-weight: 400; flex: 1; }
+    .top-bar-icon {
+      width: 40px; height: 40px;
+      border-radius: var(--radius-full);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      color: var(--on-surface-variant);
+      font-size: 18px;
+    }
+    .top-bar-icon:hover { background-color: rgba(7,67,255,0.08); }
+
+    /* ─── COLOR SWATCHES ──────────────────────────────────── */
+    .swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 8px;
+    }
+    .swatch {
+      border-radius: var(--radius-sm);
+      padding: 12px;
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .swatch-name { font-size: 11px; font-weight: 500; }
+    .swatch-hex  { font-size: 11px; opacity: 0.7; font-family: monospace; }
+
+    /* ─── TYPOGRAPHY DEMO ─────────────────────────────────── */
+    .type-row {
+      display: flex; align-items: baseline; gap: 16px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .type-meta {
+      width: 160px; flex-shrink: 0;
+      font-size: 11px; color: var(--on-surface-variant);
+      font-family: monospace;
+    }
+
+    /* ─── SPACING DEMO ────────────────────────────────────── */
+    .spacing-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .spacing-bar {
+      height: 16px;
+      background-color: var(--primary-container);
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .spacing-label { font-size: 12px; color: var(--on-surface-variant); min-width: 100px; }
+
+    /* ─── BREAKPOINT GUIDE ────────────────────────────────── */
+    .bp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    .bp-table th, .bp-table td {
+      text-align: left; padding: 10px 12px;
+      border-bottom: 1px solid var(--outline-variant);
+    }
+    .bp-table th { font-weight: 600; color: var(--on-surface); background: var(--surface-container-low); }
+    .bp-table td { color: var(--on-surface-variant); }
+    .bp-table td:first-child { font-weight: 600; color: var(--on-surface); font-family: monospace; }
+
+    /* ─── PAGE HEADER ─────────────────────────────────────── */
+    .page-header {
+      background-color: var(--surface-container-lowest);
+      border-bottom: 1px solid var(--outline-variant);
+      padding: 20px 32px;
+      display: flex; align-items: center; gap: 16px;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .page-header-logo {
+      width: 36px; height: 36px;
+      background-color: var(--primary);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 16px; font-weight: 700;
+    }
+    .page-header h1 { font-size: 20px; font-weight: 600; flex: 1; }
+    .page-header p  { font-size: 13px; color: var(--on-surface-variant); }
+    .version-badge {
+      padding: 4px 10px;
+      background-color: var(--primary-container);
+      color: var(--on-primary-container);
+      border-radius: var(--radius-full);
+      font-size: 12px; font-weight: 600;
+    }
+
+    /* ─── TAB NAV ─────────────────────────────────────────── */
+    .tab-nav {
+      display: flex; gap: 0;
+      border-bottom: 1px solid var(--outline-variant);
+      margin-bottom: 32px;
+      overflow-x: auto;
+    }
+    .tab {
+      padding: 12px 20px;
+      font-size: 14px; font-weight: 500;
+      cursor: pointer; white-space: nowrap;
+      color: var(--on-surface-variant);
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+      transition: color 150ms, border-color 150ms;
+    }
+    .tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+
+    /* ─── SURFACE ELEVATION DEMO ──────────────────────────── */
+    .elevation-row { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 12px; }
+    .elevation-block {
+      padding: 16px 20px;
+      border-radius: var(--radius-md);
+      min-width: 160px;
+      font-size: 12px;
+    }
+    .elevation-block strong { display: block; font-size: 13px; margin-bottom: 2px; }
+  </style>
+</head>
+<body>
+
+<!-- ─── PAGE HEADER ─────────────────────────────────────── -->
+<div class="page-header">
+  <img src="Jagota_logo/Logo-symbolic.svg" alt="J" style="width:36px;height:36px;" />
+  <div>
+    <h1>Jagota UI Library</h1>
+    <p>Component Preview · Design System v2.0</p>
+  </div>
+  <span class="version-badge">v2.0.0</span>
+</div>
+
+<!-- ─── MAIN SHELL ──────────────────────────────────────── -->
+<div class="app-shell">
+
+  <!-- SIDEBAR — matches confirmed NavigationBar design spec -->
+  <nav class="sidebar">
+
+    <!-- Header: JAGOTA wordmark + bell -->
+    <div class="sidebar-header">
+      <div class="sidebar-logo">
+        <img src="Jagota_logo/Logo.svg" alt="JAGOTA" />
+      </div>
+      <!-- Sidebar bell: shows count badge (number), not dot -->
+      <button class="bell-btn" title="Notifications (3)">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.33337 15.8334V14.1667H5.00004V8.33335C5.00004 7.18058 5.34726 6.15974 6.04171 5.27085C6.73615 4.36808 7.63893 3.7778 8.75004 3.50002V2.91669C8.75004 2.56946 8.8681 2.2778 9.10421 2.04169C9.35421 1.79169 9.65282 1.66669 10 1.66669C10.3473 1.66669 10.6389 1.79169 10.875 2.04169C11.125 2.2778 11.25 2.56946 11.25 2.91669V3.50002C12.3612 3.7778 13.2639 4.36808 13.9584 5.27085C14.6528 6.15974 15 7.18058 15 8.33335V14.1667H16.6667V15.8334H3.33337ZM10 18.3334C9.54171 18.3334 9.14587 18.1736 8.81254 17.8542C8.4931 17.5209 8.33337 17.125 8.33337 16.6667H11.6667C11.6667 17.125 11.5 17.5209 11.1667 17.8542C10.8473 18.1736 10.4584 18.3334 10 18.3334ZM6.66671 14.1667H13.3334V8.33335C13.3334 7.41669 13.007 6.63196 12.3542 5.97919C11.7014 5.32641 10.9167 5.00002 10 5.00002C9.08337 5.00002 8.29865 5.32641 7.64587 5.97919C6.9931 6.63196 6.66671 7.41669 6.66671 8.33335V14.1667Z" fill="currentColor"/>
+        </svg>
+        <!-- Count badge — Side navbar shows number -->
+        <span style="position:absolute; top:2px; right:2px; min-width:16px; height:16px; border-radius:100px; background:var(--error); display:flex; align-items:center; justify-content:center; padding:0 3px; font-size:10px; font-weight:600; color:#fff; line-height:1;">3</span>
+      </button>
+    </div>
+
+    <!-- Module name + collapse button -->
+    <div class="sidebar-module-row">
+      <span class="sidebar-module">Target Setup</span>
+      <button class="collapse-btn" title="Collapse sidebar">‹</button>
+    </div>
+
+    <!-- Nav items -->
+    <button class="nav-item active">
+      <div class="icon-box">▦</div>
+      <span class="nav-label">Dashboard</span>
+      <span class="dot"></span>
+    </button>
+    <button class="nav-item">
+      <div class="icon-box">◎</div>
+      <span class="nav-label">Analysis</span>
+    </button>
+    <button class="nav-item">
+      <div class="icon-box">≋</div>
+      <span class="nav-label">Reports</span>
+    </button>
+    <button class="nav-item">
+      <div class="icon-box">✦</div>
+      <span class="nav-label">Products</span>
+    </button>
+
+    <!-- Flex spacer — pushes divider + profile to bottom of sidebar -->
+    <div style="flex:1;"></div>
+    <!-- Divider: surfaceVariant (#E0E1F6), full-width, always above profile -->
+    <div style="height:1px; background:var(--surface-variant); margin: 0 -8px;"></div>
+
+    <div class="sidebar-user">
+      <div class="avatar">SM</div>
+      <div class="user-info">
+        <div class="user-name">Staff Name</div>
+        <div class="user-role">Category Manager</div>
+      </div>
+      <!-- More button (⋮) — replaces Settings nav item -->
+      <button style="width:32px; height:32px; border-radius:8px; border:none; background:transparent; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--on-surface-variant); flex-shrink:0;" title="More options (Settings...)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="12" cy="19" r="1.8"/></svg>
+      </button>
+    </div>
+
+  </nav>
+
+  <!-- CONTENT -->
+  <main class="content">
+
+    <!-- ─── NAVIGATION BAR STATES ─── -->
+    <div class="section">
+      <div class="section-title">Navigation Bar</div>
+      <div class="section-sub">Left sidebar — 3 responsive states. No shadows; depth via surfaceContainerLowest + surfaceVariant border.</div>
+
+      <!-- State demos row -->
+      <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:flex-start;">
+
+        <!-- Expanded (240px) -->
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="font-size:11px; font-weight:500; color:var(--on-surface-variant); text-transform:uppercase; letter-spacing:0.5px;">Expanded · 240px · ≥1280px</div>
+          <div style="width:240px; min-height:480px; background:var(--surface-container-lowest); border:1px solid var(--surface-variant); border-radius:var(--radius-md); overflow:hidden; display:flex; flex-direction:column;">
+            <!-- header: logo + bell — 40px bottom padding for spacing to menu group -->
+            <div style="display:flex; align-items:center; padding:16px 12px 40px; gap:8px;">
+              <img src="Jagota_logo/Logo.svg" alt="JAGOTA" style="height:22px; flex:1;" />
+              <div style="position:relative; width:36px; height:36px; display:flex; align-items:center; justify-content:center; color:var(--on-surface-variant); border-radius:10px; cursor:pointer;">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3.33337 15.8334V14.1667H5.00004V8.33335C5.00004 7.18058 5.34726 6.15974 6.04171 5.27085C6.73615 4.36808 7.63893 3.7778 8.75004 3.50002V2.91669C8.75004 2.56946 8.8681 2.2778 9.10421 2.04169C9.35421 1.79169 9.65282 1.66669 10 1.66669C10.3473 1.66669 10.6389 1.79169 10.875 2.04169C11.125 2.2778 11.25 2.56946 11.25 2.91669V3.50002C12.3612 3.7778 13.2639 4.36808 13.9584 5.27085C14.6528 6.15974 15 7.18058 15 8.33335V14.1667H16.6667V15.8334H3.33337ZM10 18.3334C9.54171 18.3334 9.14587 18.1736 8.81254 17.8542C8.4931 17.5209 8.33337 17.125 8.33337 16.6667H11.6667C11.6667 17.125 11.5 17.5209 11.1667 17.8542C10.8473 18.1736 10.4584 18.3334 10 18.3334ZM6.66671 14.1667H13.3334V8.33335C13.3334 7.41669 13.007 6.63196 12.3542 5.97919C11.7014 5.32641 10.9167 5.00002 10 5.00002C9.08337 5.00002 8.29865 5.32641 7.64587 5.97919C6.9931 6.63196 6.66671 7.41669 6.66671 8.33335V14.1667Z" fill="currentColor"/></svg>
+                <!-- Count badge: number (side nav) -->
+                <span style="position:absolute; top:2px; right:2px; min-width:16px; height:16px; border-radius:100px; background:var(--error); display:flex; align-items:center; justify-content:center; padding:0 3px; font-size:10px; font-weight:600; color:#fff; line-height:1;">3</span>
+              </div>
+            </div>
+            <!-- module row: Square collapse button (radius-sm = 8px) -->
+            <div style="display:flex; align-items:center; padding:0 12px 8px; gap:4px;">
+              <span style="flex:1; font-size:11px; font-weight:500; color:var(--outline); letter-spacing:0.5px; text-transform:uppercase;">Target Setup</span>
+              <div style="width:28px; height:28px; border-radius:8px; background:var(--tertiary-container); color:var(--on-tertiary-container); display:flex; align-items:center; justify-content:center; font-size:13px; cursor:pointer;">‹</div>
+            </div>
+            <!-- active item -->
+            <div style="display:flex; align-items:center; gap:8px; padding:10px 12px; margin:0 8px 2px; border-radius:12px; background:var(--surface-container-low); color:var(--on-surface); font-size:12px; font-weight:600;">
+              <span style="font-size:14px;">▦</span>
+              <span style="flex:1;">Dashboard</span>
+              <span style="width:6px; height:6px; border-radius:50%; background:var(--primary); flex-shrink:0;"></span>
+            </div>
+            <!-- inactive items -->
+            <div style="display:flex; align-items:center; gap:8px; padding:10px 12px; margin:0 8px 2px; border-radius:12px; color:var(--on-surface-variant); font-size:12px; font-weight:600;">
+              <span style="font-size:14px;">◎</span><span>Analysis</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:8px; padding:10px 12px; margin:0 8px 2px; border-radius:12px; color:var(--on-surface-variant); font-size:12px; font-weight:600;">
+              <span style="font-size:14px;">≋</span><span>Reports</span>
+            </div>
+            <!-- flex spacer — pushes divider to bottom above profile -->
+            <div style="flex:1;"></div>
+            <!-- divider: surfaceVariant, full-width -->
+            <div style="height:1px; background:var(--surface-variant);"></div>
+            <!-- user -->
+            <div style="display:flex; align-items:center; gap:10px; padding:10px 12px 14px;">
+              <div style="width:40px; height:40px; border-radius:50%; border:1px solid var(--outline-variant); background:var(--primary-container); color:var(--on-primary-container); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600; flex-shrink:0;">SM</div>
+              <div>
+                <div style="font-size:12px; font-weight:600; color:var(--on-surface);">Staff Name</div>
+                <div style="font-size:11px; font-weight:500; color:var(--outline);">Category Manager</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Collapsed (80px) -->
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="font-size:11px; font-weight:500; color:var(--on-surface-variant); text-transform:uppercase; letter-spacing:0.5px;">Collapsed · 80px · ≥960px</div>
+          <div style="width:80px; min-height:480px; background:var(--surface-container-lowest); border:1px solid var(--surface-variant); border-radius:var(--radius-md); overflow:hidden; display:flex; flex-direction:column;">
+            <!-- symbolic logo -->
+            <div style="display:flex; justify-content:center; padding:16px 0 8px;">
+              <img src="Jagota_logo/Logo-symbolic.svg" alt="J" style="width:36px; height:36px;" />
+            </div>
+            <!-- bell: collapsed shows count badge too -->
+            <div style="display:flex; justify-content:center; padding:4px 0 8px;">
+              <div style="position:relative; width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; color:var(--on-surface-variant); cursor:pointer;">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3.33337 15.8334V14.1667H5.00004V8.33335C5.00004 7.18058 5.34726 6.15974 6.04171 5.27085C6.73615 4.36808 7.63893 3.7778 8.75004 3.50002V2.91669C8.75004 2.56946 8.8681 2.2778 9.10421 2.04169C9.35421 1.79169 9.65282 1.66669 10 1.66669C10.3473 1.66669 10.6389 1.79169 10.875 2.04169C11.125 2.2778 11.25 2.56946 11.25 2.91669V3.50002C12.3612 3.7778 13.2639 4.36808 13.9584 5.27085C14.6528 6.15974 15 7.18058 15 8.33335V14.1667H16.6667V15.8334H3.33337ZM10 18.3334C9.54171 18.3334 9.14587 18.1736 8.81254 17.8542C8.4931 17.5209 8.33337 17.125 8.33337 16.6667H11.6667C11.6667 17.125 11.5 17.5209 11.1667 17.8542C10.8473 18.1736 10.4584 18.3334 10 18.3334ZM6.66671 14.1667H13.3334V8.33335C13.3334 7.41669 13.007 6.63196 12.3542 5.97919C11.7014 5.32641 10.9167 5.00002 10 5.00002C9.08337 5.00002 8.29865 5.32641 7.64587 5.97919C6.9931 6.63196 6.66671 7.41669 6.66671 8.33335V14.1667Z" fill="currentColor"/></svg>
+                <!-- Count badge on collapsed sidebar too -->
+                <span style="position:absolute; top:2px; right:2px; min-width:16px; height:16px; border-radius:100px; background:var(--error); display:flex; align-items:center; justify-content:center; padding:0 3px; font-size:10px; font-weight:600; color:#fff; line-height:1;">3</span>
+              </div>
+            </div>
+            <!-- collapse button: Square type (8px radius), not pill -->
+            <div style="display:flex; justify-content:center; padding:4px 0 8px;">
+              <div style="width:28px; height:28px; border-radius:8px; background:var(--tertiary-container); color:var(--on-tertiary-container); display:flex; align-items:center; justify-content:center; font-size:13px; cursor:pointer;">›</div>
+            </div>
+            <!-- icon-only nav items -->
+            <div style="display:flex; justify-content:center; margin:0 8px 2px;">
+              <div style="width:48px; height:48px; border-radius:12px; background:var(--surface-container-low); display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--on-surface); cursor:pointer;">▦</div>
+            </div>
+            <div style="display:flex; justify-content:center; margin:0 8px 2px;">
+              <div style="width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--on-surface-variant); cursor:pointer;">◎</div>
+            </div>
+            <div style="display:flex; justify-content:center; margin:0 8px 2px;">
+              <div style="width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--on-surface-variant); cursor:pointer;">≋</div>
+            </div>
+            <!-- flex spacer — pushes divider to bottom -->
+            <div style="flex:1;"></div>
+            <!-- divider: surfaceVariant -->
+            <div style="height:1px; background:var(--surface-variant);"></div>
+            <!-- avatar only + more button -->
+            <div style="display:flex; align-items:center; justify-content:center; padding:10px 8px 14px;">
+              <div style="width:40px; height:40px; border-radius:50%; border:1px solid var(--outline-variant); background:var(--primary-container); color:var(--on-primary-container); display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:600;">SM</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mobile top bar -->
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          <div style="font-size:11px; font-weight:500; color:var(--on-surface-variant); text-transform:uppercase; letter-spacing:0.5px;">Mobile · Top bar + Drawer · &lt;960px</div>
+          <div style="width:320px; background:var(--surface-container-lowest); border:1px solid var(--surface-variant); border-radius:var(--radius-md); overflow:hidden;">
+            <!-- top bar: hamburger (outlined square) + logo (h:20px, tight gap) + bell (dot only) -->
+            <div style="display:flex; align-items:center; height:56px; padding:0 8px; border-bottom:1px solid var(--outline-variant); gap:4px;">
+              <!-- Hamburger: outlined square style -->
+              <div style="width:40px; height:40px; border-radius:12px; border:1.5px solid var(--outline-variant); display:flex; align-items:center; justify-content:center; color:var(--on-surface-variant); cursor:pointer; flex-shrink:0;">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+              </div>
+              <!-- Logo: height 20px, 12px fixed gap from hamburger, NOT flex:1 -->
+              <img src="Jagota_logo/Logo.svg" alt="JAGOTA" style="height:20px; margin-left:12px;" />
+              <!-- Spacer — pushes bell to far right -->
+              <div style="flex:1;"></div>
+              <!-- Bell: DOT only (mobile top bar) -->
+              <div style="position:relative; width:40px; height:40px; display:flex; align-items:center; justify-content:center; color:var(--on-surface-variant); border-radius:10px; cursor:pointer; flex-shrink:0;">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3.33337 15.8334V14.1667H5.00004V8.33335C5.00004 7.18058 5.34726 6.15974 6.04171 5.27085C6.73615 4.36808 7.63893 3.7778 8.75004 3.50002V2.91669C8.75004 2.56946 8.8681 2.2778 9.10421 2.04169C9.35421 1.79169 9.65282 1.66669 10 1.66669C10.3473 1.66669 10.6389 1.79169 10.875 2.04169C11.125 2.2778 11.25 2.56946 11.25 2.91669V3.50002C12.3612 3.7778 13.2639 4.36808 13.9584 5.27085C14.6528 6.15974 15 7.18058 15 8.33335V14.1667H16.6667V15.8334H3.33337ZM10 18.3334C9.54171 18.3334 9.14587 18.1736 8.81254 17.8542C8.4931 17.5209 8.33337 17.125 8.33337 16.6667H11.6667C11.6667 17.125 11.5 17.5209 11.1667 17.8542C10.8473 18.1736 10.4584 18.3334 10 18.3334ZM6.66671 14.1667H13.3334V8.33335C13.3334 7.41669 13.007 6.63196 12.3542 5.97919C11.7014 5.32641 10.9167 5.00002 10 5.00002C9.08337 5.00002 8.29865 5.32641 7.64587 5.97919C6.9931 6.63196 6.66671 7.41669 6.66671 8.33335V14.1667Z" fill="currentColor"/></svg>
+                <!-- DOT badge only (no number) -->
+                <span style="position:absolute; top:6px; right:6px; width:7px; height:7px; border-radius:50%; background:var(--error); border:1.5px solid var(--surface-container-lowest);"></span>
+              </div>
+            </div>
+            <!-- drawer preview -->
+            <div style="display:flex; height:200px;">
+              <div style="width:200px; background:var(--surface-container-lowest); border-right:1px solid var(--surface-variant); padding:12px 8px; display:flex; flex-direction:column; gap:2px;">
+                <div style="font-size:11px; font-weight:500; color:var(--outline); letter-spacing:0.5px; text-transform:uppercase; padding:0 8px 8px;">Target Setup</div>
+                <div style="display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:12px; background:var(--surface-container-low); color:var(--on-surface); font-size:12px; font-weight:600;">
+                  <span>▦</span><span style="flex:1;">Dashboard</span><span style="width:6px; height:6px; border-radius:50%; background:var(--primary);"></span>
+                </div>
+                <div style="display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:12px; color:var(--on-surface-variant); font-size:12px; font-weight:600;"><span>◎</span><span>Analysis</span></div>
+                <div style="display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:12px; color:var(--on-surface-variant); font-size:12px; font-weight:600;"><span>≋</span><span>Reports</span></div>
+              </div>
+              <!-- scrim -->
+              <div style="flex:1; background:rgba(25,27,37,0.32); cursor:pointer;"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ─── TOP APP BAR ─── -->
+    <div class="section">
+      <div class="section-title">Top App Bar</div>
+      <div class="section-sub">Page-level header bar — no shadow, uses border-bottom only</div>
+      <div class="top-bar" style="border-radius: var(--radius-md);">
+        <div class="top-bar-icon">←</div>
+        <div class="top-bar-title">Page Title</div>
+        <div class="top-bar-icon">🔔</div>
+        <div class="top-bar-icon">⋮</div>
+      </div>
+    </div>
+
+    <!-- ─── BUTTONS ─── -->
+    <div class="section">
+      <div class="section-title">Buttons</div>
+      <div class="section-sub">
+        Two shape types. Ask at the start of every Vibe coding session: <strong>shape="round"</strong> (pill, default) or <strong>shape="square"</strong> (rounded rect, radius-md 12px).
+        No shadows on any state.
+      </div>
+
+      <!-- Round shape (default) -->
+      <div style="font-size:11px; font-weight:500; color:var(--outline); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">shape="round" — Pill (border-radius: 1000px) · Default</div>
+      <div class="row">
+        <button class="btn btn-filled">Filled</button>
+        <button class="btn btn-outlined">Outlined</button>
+        <button class="btn btn-text">Text</button>
+        <button class="btn btn-tonal">Tonal</button>
+        <button class="btn btn-error">Destructive</button>
+      </div>
+
+      <!-- Square shape -->
+      <div style="font-size:11px; font-weight:500; color:var(--outline); text-transform:uppercase; letter-spacing:0.5px; margin:16px 0 8px;">shape="square" — Rounded rectangle (border-radius: 12px)</div>
+      <div class="row">
+        <button class="btn btn-filled"   style="border-radius:12px;">Filled</button>
+        <button class="btn btn-outlined" style="border-radius:12px;">Outlined</button>
+        <button class="btn btn-text"     style="border-radius:12px;">Text</button>
+        <button class="btn btn-tonal"    style="border-radius:12px;">Tonal</button>
+        <button class="btn btn-error"    style="border-radius:12px;">Destructive</button>
+      </div>
+
+      <!-- Sizes & disabled (using round as baseline) -->
+      <div style="font-size:11px; font-weight:500; color:var(--outline); text-transform:uppercase; letter-spacing:0.5px; margin:16px 0 8px;">Sizes & Disabled states</div>
+      <div class="row">
+        <button class="btn btn-filled btn-sm">Small Filled</button>
+        <button class="btn btn-outlined btn-sm">Small Outlined</button>
+        <button class="btn btn-tonal btn-sm">Small Tonal</button>
+      </div>
+      <div class="row">
+        <button class="btn btn-filled btn-disabled" disabled>Disabled</button>
+        <button class="btn btn-outlined btn-disabled" disabled>Disabled</button>
+        <button class="btn btn-tonal btn-disabled" disabled>Disabled</button>
+      </div>
+    </div>
+
+    <!-- ─── CHIPS ─── -->
+    <div class="section">
+      <div class="section-title">Chips</div>
+      <div class="section-sub">Used for filters, tags, status indicators. Border-radius: small (8px).</div>
+      <div class="row">
+        <span class="chip chip-filled">Category</span>
+        <span class="chip chip-outlined">Filter</span>
+        <span class="chip chip-selected">Selected</span>
+        <span class="chip chip-success">Active</span>
+        <span class="chip chip-warning">Pending</span>
+        <span class="chip chip-error">Inactive</span>
+      </div>
+    </div>
+
+    <!-- ─── CARDS ─── -->
+    <div class="section">
+      <div class="section-title">Cards</div>
+      <div class="section-sub">Background: surfaceContainerLowest (#FFFFFF). No shadows. Use for elevated content.</div>
+      <div class="col-grid">
+        <!-- Filled Card -->
+        <div class="card">
+          <div class="card-title">Filled Card</div>
+          <div class="card-body">Uses surfaceContainerLowest (#FFFFFF). Default card type for important content.</div>
+          <div class="card-actions">
+            <button class="btn btn-filled btn-sm">Action</button>
+            <button class="btn btn-text btn-sm">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Outlined Card -->
+        <div class="card-outlined">
+          <div class="card-title">Outlined Card</div>
+          <div class="card-body">Transparent background with outline border. Use for neutral/secondary content.</div>
+          <div class="card-actions">
+            <button class="btn btn-outlined btn-sm">Action</button>
+          </div>
+        </div>
+
+        <!-- Tonal Card -->
+        <div class="card-tonal">
+          <div class="card-title">Tonal Card</div>
+          <div class="card-body">Uses surfaceContainer. Slightly elevated visual — no background needed for non-critical.</div>
+          <div class="card-actions">
+            <button class="btn btn-tonal btn-sm">Action</button>
+          </div>
+        </div>
+
+        <!-- Stats Card -->
+        <div class="card">
+          <div class="card-body" style="font-size:11px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:8px;">Total Revenue</div>
+          <div style="font-size:32px; font-weight:400; line-height:40px; color:var(--on-surface); margin-bottom:4px;">฿1,284,500</div>
+          <span class="chip chip-success" style="font-size:12px;">↑ +12.4%</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── TEXT FIELDS ─── -->
+    <div class="section">
+      <div class="section-title">Text Fields</div>
+      <div class="section-sub">Outlined variant. Border-radius: extra-small (4px). No shadows.</div>
+      <div class="col-grid">
+        <div class="field-group">
+          <label class="field-label">Default Field</label>
+          <input class="field-input" type="text" placeholder="Enter value..." />
+        </div>
+        <div class="field-group">
+          <label class="field-label focused">Focused Field</label>
+          <input class="field-input" type="text" value="Input text" style="border-color: var(--primary); border-width:2px;" />
+        </div>
+        <div class="field-group">
+          <label class="field-label error">Error Field</label>
+          <input class="field-input error" type="text" value="Invalid value" />
+          <span class="field-helper error">This field is required</span>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Disabled Field</label>
+          <input class="field-input" type="text" placeholder="Disabled" disabled style="opacity:0.38;" />
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── DIALOG ─── -->
+    <div class="section">
+      <div class="section-title">Dialog</div>
+      <div class="section-sub">Background: surfaceContainerHigh. Border-radius: extra-large (28px). No shadow.</div>
+      <div class="dialog-demo">
+        <div class="dialog-title">Confirm Action</div>
+        <div class="dialog-content">
+          Are you sure you want to delete this item? This action cannot be undone.
+        </div>
+        <div class="dialog-actions">
+          <button class="btn btn-text">Cancel</button>
+          <button class="btn btn-error">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── SNACKBAR ─── -->
+    <div class="section">
+      <div class="section-title">Snackbar</div>
+      <div class="section-sub">Background: inverseSurface (#2E303B). Border-radius: extra-small (4px).</div>
+      <div class="row">
+        <div class="snackbar">
+          Changes saved successfully.
+          <button class="snackbar-action">Undo</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="snackbar">
+          Connection lost. Reconnecting...
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── SURFACE ELEVATION ─── -->
+    <div class="section">
+      <div class="section-title">Surface Elevation System</div>
+      <div class="section-sub">No shadows — depth is shown through color. Lighter = more elevated.</div>
+      <div class="elevation-row">
+        <div class="elevation-block" style="background:var(--surface);">
+          <strong>Surface</strong>#FBF8FF · Page background
+        </div>
+        <div class="elevation-block" style="background:var(--surface-container-lowest);">
+          <strong>Container Lowest</strong>#FFFFFF · Cards
+        </div>
+        <div class="elevation-block" style="background:var(--surface-container-low);">
+          <strong>Container Low</strong>#F4F2FF · Sidebars
+        </div>
+        <div class="elevation-block" style="background:var(--surface-container);">
+          <strong>Container</strong>#EDECFB · Default
+        </div>
+        <div class="elevation-block" style="background:var(--surface-container-high);">
+          <strong>Container High</strong>#E8E7F5 · Dialogs
+        </div>
+        <div class="elevation-block" style="background:var(--surface-container-highest);">
+          <strong>Container Highest</strong>#E2E1F0 · Top level
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── COLOR PALETTE ─── -->
+    <div class="section">
+      <div class="section-title">Color Tokens</div>
+      <div class="section-sub">Jagota Brand Blue (#0743FF) with Material Design 3 color roles.</div>
+      <div class="swatch-grid">
+        <div class="swatch" style="background:#0743FF; color:#fff;">
+          <span class="swatch-name">Primary</span><span class="swatch-hex">#0743FF</span>
+        </div>
+        <div class="swatch" style="background:#DEE0FF; color:#0031C6;">
+          <span class="swatch-name">Primary Container</span><span class="swatch-hex">#DEE0FF</span>
+        </div>
+        <div class="swatch" style="background:#BAC3FF; color:#00208E;">
+          <span class="swatch-name">Primary Fixed Dim</span><span class="swatch-hex">#BAC3FF</span>
+        </div>
+        <div class="swatch" style="background:#9B00B0; color:#fff;">
+          <span class="swatch-name">Tertiary</span><span class="swatch-hex">#9B00B0</span>
+        </div>
+        <div class="swatch" style="background:#FCD7FF; color:#780097;">
+          <span class="swatch-name">Tertiary Container</span><span class="swatch-hex">#FCD7FF</span>
+        </div>
+        <div class="swatch" style="background:#BA1A1A; color:#fff;">
+          <span class="swatch-name">Error</span><span class="swatch-hex">#BA1A1A</span>
+        </div>
+        <div class="swatch" style="background:#22C55E; color:#fff;">
+          <span class="swatch-name">Success</span><span class="swatch-hex">#22C55E</span>
+        </div>
+        <div class="swatch" style="background:#F59E0B; color:#fff;">
+          <span class="swatch-name">Warning</span><span class="swatch-hex">#F59E0B</span>
+        </div>
+        <div class="swatch" style="background:#FBF8FF; color:#191B25; border:1px solid #C4C5DA;">
+          <span class="swatch-name">Surface</span><span class="swatch-hex">#FBF8FF</span>
+        </div>
+        <div class="swatch" style="background:#FFFFFF; color:#191B25; border:1px solid #C4C5DA;">
+          <span class="swatch-name">Container Lowest</span><span class="swatch-hex">#FFFFFF</span>
+        </div>
+        <div class="swatch" style="background:#191B25; color:#FBF8FF;">
+          <span class="swatch-name">On Surface</span><span class="swatch-hex">#191B25</span>
+        </div>
+        <div class="swatch" style="background:#2E303B; color:#F0EFFE;">
+          <span class="swatch-name">Inverse Surface</span><span class="swatch-hex">#2E303B</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── TYPOGRAPHY ─── -->
+    <div class="section">
+      <div class="section-title">Typography Scale</div>
+      <div class="section-sub">TikTok Sans (with Noto Sans Thai fallback). No uppercase transforms.</div>
+
+      <div class="type-row">
+        <div class="type-meta">Display Large<br/>57px · 400</div>
+        <div style="font-size:40px; font-weight:400; line-height:1.2;">Display Large</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Headline Large<br/>32px · 400</div>
+        <div style="font-size:32px; font-weight:400; line-height:40px;">Headline Large</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Headline Medium<br/>28px · 400</div>
+        <div style="font-size:28px; font-weight:400; line-height:36px;">Headline Medium</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Title Large<br/>22px · 400</div>
+        <div style="font-size:22px; font-weight:400; line-height:28px;">Title Large</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Title Medium<br/>16px · 500</div>
+        <div style="font-size:16px; font-weight:500; line-height:24px;">Title Medium</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Body Large<br/>16px · 400</div>
+        <div style="font-size:16px; font-weight:400; line-height:24px;">Body Large — standard reading text for main content</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Body Medium<br/>14px · 400</div>
+        <div style="font-size:14px; font-weight:400; line-height:20px;">Body Medium — most common UI text size for descriptions</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Label Large<br/>14px · 500</div>
+        <div style="font-size:14px; font-weight:500; line-height:20px; letter-spacing:0.1px;">Label Large — buttons, tabs, prominent labels</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Label Medium<br/>12px · 500</div>
+        <div style="font-size:12px; font-weight:500; line-height:16px; letter-spacing:0.5px;">Label Medium — chips, input labels, captions</div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">Label Small<br/>11px · 500</div>
+        <div style="font-size:11px; font-weight:500; line-height:16px; letter-spacing:0.5px; text-transform:uppercase;">Label Small — overlines, badges, micro labels</div>
+      </div>
+    </div>
+
+    <!-- ─── SPACING ─── -->
+    <div class="section">
+      <div class="section-title">Spacing Scale</div>
+      <div class="section-sub">4px base unit. Use multiples of 4 for consistent rhythm.</div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:2px;"></div><div class="spacing-label">xs = 2px</div><span style="font-size:12px; color:var(--on-surface-variant);">Hairline</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:4px;"></div><div class="spacing-label">s = 4px</div><span style="font-size:12px; color:var(--on-surface-variant);">Icon padding</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:8px;"></div><div class="spacing-label">m = 8px</div><span style="font-size:12px; color:var(--on-surface-variant);">Default gap</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:12px;"></div><div class="spacing-label">sm = 12px</div><span style="font-size:12px; color:var(--on-surface-variant);">Input padding</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:16px;"></div><div class="spacing-label">l = 16px ⭐</div><span style="font-size:12px; color:var(--on-surface-variant);">Card / section padding (most common)</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:20px;"></div><div class="spacing-label">sl = 20px</div><span style="font-size:12px; color:var(--on-surface-variant);">Dialog padding</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:24px;"></div><div class="spacing-label">xl = 24px</div><span style="font-size:12px; color:var(--on-surface-variant);">Large section</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:32px;"></div><div class="spacing-label">2xl = 32px</div><span style="font-size:12px; color:var(--on-surface-variant);">Page section</span></div>
+      <div class="spacing-row"><div class="spacing-bar" style="width:48px;"></div><div class="spacing-label">4xl = 48px</div><span style="font-size:12px; color:var(--on-surface-variant);">Page padding</span></div>
+    </div>
+
+    <!-- ─── BREAKPOINTS ─── -->
+    <div class="section">
+      <div class="section-title">Breakpoints</div>
+      <div class="section-sub">Jagota responsive grid — MUI-compatible breakpoints.</div>
+      <table class="bp-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Width</th>
+            <th>Sidebar</th>
+            <th>Layout Columns</th>
+            <th>Use Case</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>xs</td><td>0px</td><td>—</td><td>4 col</td><td>Very small mobile</td></tr>
+          <tr><td>sm</td><td>360px</td><td>—</td><td>4 col</td><td>Standard mobile</td></tr>
+          <tr><td>md</td><td>600px</td><td>Top bar + drawer</td><td>8 col</td><td>Mobile / tablet portrait</td></tr>
+          <tr><td>lg</td><td>960px</td><td>80px collapsed</td><td>8 col</td><td>Tablet landscape</td></tr>
+          <tr><td>xl</td><td>1280px</td><td>240px expanded</td><td>12 col</td><td>Desktop ✅ Primary target</td></tr>
+          <tr><td>2xl</td><td>1536px</td><td>240px expanded</td><td>12 col</td><td>Wide desktop</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ─── SHAPE / RADIUS ─── -->
+    <div class="section">
+      <div class="section-title">Shape — Corner Radius</div>
+      <div class="section-sub">All components use one of these radius values — no custom values.</div>
+      <div class="row" style="flex-wrap: wrap; gap: 16px;">
+        <div style="text-align:center;">
+          <div style="width:64px; height:40px; background:var(--primary-container); border-radius:0; margin:0 auto;"></div>
+          <div style="font-size:11px; margin-top:4px; color:var(--on-surface-variant);">None<br/>0px</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:64px; height:40px; background:var(--primary-container); border-radius:4px; margin:0 auto;"></div>
+          <div style="font-size:11px; margin-top:4px; color:var(--on-surface-variant);">XS<br/>4px</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:64px; height:40px; background:var(--primary-container); border-radius:8px; margin:0 auto;"></div>
+          <div style="font-size:11px; margin-top:4px; color:var(--on-surface-variant);">SM<br/>8px · Chips</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:64px; height:40px; background:var(--primary-container); border-radius:12px; margin:0 auto;"></div>
+          <div style="font-size:11px; margin-top:4px; color:var(--on-surface-variant);">MD<br/>12px · Cards</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:64px; height:40px; background:var(--primary-container); border-radius:16px; margin:0 auto;"></div>
+          <div style="font-size:11px; margin-top:4px; color:var(--on-surface-variant);">LG<br/>16px · FAB</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:64px; height:40px; background:var(--primary-container); border-radius:28px; margin:0 auto;"></div>
+          <div style="font-size:11px; margin-top:4px; color:var(--on-surface-variant);">XL<br/>28px · Dialog</div>
+        </div>
+        <div style="text-align:center;">
+          <div style="width:64px; height:40px; background:var(--primary-container); border-radius:1000px; margin:0 auto;"></div>
+          <div style="font-size:11px; margin-top:4px; color:var(--on-surface-variant);">Full<br/>Pill · Button</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="padding: 32px 0; border-top: 1px solid var(--outline-variant); color: var(--on-surface-variant); font-size: 12px; text-align:center;">
+      Jagota UI Library · Design System v2.0 · April 2026<br/>
+      Base: Material Design 3 + Jagota Brand Theme (Primary: #0743FF)
+    </div>
+
+  </main><!-- /content -->
+</div><!-- /app-shell -->
+
+</body>
+</html>

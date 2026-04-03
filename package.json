@@ -1,0 +1,66 @@
+{
+  "name": "@jagota/ui",
+  "version": "1.0.0",
+  "description": "Jagota Brother Trading — UI Component Library (M3 + Jagota Theme)",
+  "author": "Jagota AI Force",
+  "license": "UNLICENSED",
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    },
+    "./styles": "./dist/styles/foundation.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "*.css"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "tsc --noEmit && vite build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src --ext .ts,.tsx"
+  },
+  "peerDependencies": {
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
+    "@mui/material": "^5.0.0 || ^6.0.0",
+    "react": "^17.0.0 || ^18.0.0 || ^19.0.0",
+    "react-dom": "^17.0.0 || ^18.0.0 || ^19.0.0"
+  },
+  "devDependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/material": "^6.4.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "typescript": "^5.3.0",
+    "vite": "^5.4.0",
+    "vite-plugin-dts": "^4.3.0"
+  },
+  "keywords": [
+    "jagota",
+    "design-system",
+    "material-design-3",
+    "m3",
+    "mui",
+    "ui-library",
+    "react",
+    "theme"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/moofats48-cpu/JAGOTA-UI-Library.git"
+  }
+}
